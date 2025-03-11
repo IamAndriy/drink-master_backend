@@ -11,7 +11,7 @@ const joi = require("joi");
             required: [true, 'Set drink title for recipe (a string between 2 and 50 characters long)'],
             minlength: 2,
             maxlenght: 50,
-            unique: true,
+            unique: [true, 'Drink name must be unique'],
         },
         drinkAlternate:{
             type: String,
@@ -137,9 +137,6 @@ const addSchema = joi.object({
             switch (err.code) {
                     case "any.required": 
                                     err.message = "missing required drink field";
-                                    break;
-                    case "any.unique":
-                                    err.message = "drink name is not unique";
                                     break;
                     case "string.empty":
                                     err.message = "drink field should not be empty!";
