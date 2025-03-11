@@ -9,8 +9,7 @@ const cloudinary = require('cloudinary').v2;
 //------ КОНТРОЛЛЕРИ ДЛЯ РОБОТИ ІЗ КОЛЛЕКЦІЄЮ RECIPES ( для маршрута /drinks) ----------------------------
 
     const getDrinksForMainPage = async (req, res) => {
-      
-      const { per_page } = req.query;
+            const { per_page } = req.query;
       const userBirthDate = req.user.birthdate;
       const currentDate = new Date();
       const userAge = differenceInYears(currentDate, userBirthDate);
