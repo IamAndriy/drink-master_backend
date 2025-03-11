@@ -132,11 +132,14 @@ const joi = require("joi");
 // ----- СХЕМИ ВАЛІДАЦІЇ ДАНИХ В ТІЛІ HTTP-запиту КОЛЕКЦІЇ "RECIPES"-----------------------------------------------------------
 
 const addSchema = joi.object({
-    drink : joi.string().required().min(2).max(50).error(errors => {
+    drink : joi.string().required().min(2).max(50).unique().error(errors => {
         errors.forEach(err => {
             switch (err.code) {
                     case "any.required": 
                                     err.message = "missing required drink field";
+                                    break;
+                    case "any.unique":
+                                    err.message = "drink name is not unique";
                                     break;
                     case "string.empty":
                                     err.message = "drink field should not be empty!";
