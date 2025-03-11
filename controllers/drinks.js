@@ -184,6 +184,7 @@ const cloudinary = require('cloudinary').v2;
           }
       );    
 
+      
       res.status(201).json(result);
     } 
 
