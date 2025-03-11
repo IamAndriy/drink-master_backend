@@ -8,7 +8,6 @@ const cloudinary = require('cloudinary').v2;
 
 //------ КОНТРОЛЛЕРИ ДЛЯ РОБОТИ ІЗ КОЛЛЕКЦІЄЮ RECIPES ( для маршрута /drinks) ----------------------------
 
-
     const getDrinksForMainPage = async (req, res) => {
       
       const { per_page } = req.query;
