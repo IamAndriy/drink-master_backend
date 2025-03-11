@@ -168,7 +168,7 @@ const cloudinary = require('cloudinary').v2;
           return {title, measure, ingredientId: _id }; 
       });
 
-      const drink = await Recipe.findOne({drink: req.body.name});
+      const drink = await Recipe.findOne({drink: req.body.drink});
       
       console.log("drink = ",drink);
 
