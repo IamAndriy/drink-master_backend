@@ -173,7 +173,8 @@ const cloudinary = require('cloudinary').v2;
             owner
           }
       );    
-
+      console.log("result", result);
+      
       if (!result) { 
         throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
       } 
