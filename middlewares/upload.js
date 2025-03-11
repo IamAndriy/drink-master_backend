@@ -15,6 +15,7 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     
     let folder;
+
     if (file.fieldname === 'avatar') {
       folder = 'avatars';
     } else if (file.fieldname === "drinkThumb") {
@@ -22,6 +23,7 @@ const storage = new CloudinaryStorage({
     } else {
       folder = "others";
     }
+
     return {
       folder: folder,
       allowed_formats: ["jpg", "png"], 
@@ -34,7 +36,19 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage,
+  fileFilter: (req, file, cb)=>{
+      const formatsArray = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      if (formatsArray.indexOf(file.mimetype) === -1) {
+        return cb(httpError(500,"Wrong file format!"));
+      }
+
+      cb(null, true);
+  }
+});
+
+//const upload = multer({ storage });
 
 
 //----------------------------------------------------------------------------------------------
