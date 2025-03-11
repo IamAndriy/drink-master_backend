@@ -9,7 +9,6 @@ const cloudinary = require('cloudinary').v2;
 //------ КОНТРОЛЛЕРИ ДЛЯ РОБОТИ ІЗ КОЛЛЕКЦІЄЮ RECIPES ( для маршрута /drinks) ----------------------------
 
     const getDrinksForMainPage = async (req, res) => {
-            const { per_page } = req.query;
       const userBirthDate = req.user.birthdate;
       const currentDate = new Date();
       const userAge = differenceInYears(currentDate, userBirthDate);
@@ -21,7 +20,6 @@ const cloudinary = require('cloudinary').v2;
       for (const category of categories) {
         const cocktails = await Recipe.aggregate([
           { $match: { category, alcoholic: ageFilter ? { $in: ['Alcoholic', 'Non alcoholic'] } : 'Non alcoholic' } },
-          { $sample: { size: parseInt(per_page) } },
           { $project: { _id: 1, drink: 1, drinkThumb: 1, alcoholic: 1 } }
         ]);
 
@@ -151,7 +149,13 @@ const cloudinary = require('cloudinary').v2;
       if (req.fileValidationError){
         throw httpError(500, "Wrong file format.");
       }
+      if (req.fileValidationError){
+        throw httpError(500, "Wrong file format.");
+      }
 
+      if (!req.file) { 
+        throw httpError(400, `Drink photo is required`); 
+      } 
       if (!req.file) { 
         throw httpError(400, `Drink photo is required`); 
       } 
@@ -160,9 +164,13 @@ const cloudinary = require('cloudinary').v2;
       const {ingredients} = req.body;
       const drinkThumb = req.file.path;
       
+      const {ingredients} = req.body;
+      const drinkThumb = req.file.path;
+      
       const ingredientsJSON =  JSON.parse(ingredients).map(({title, measure="", _id: ingId})=>{
           const _id = new mongoose.Types.ObjectId(ingId);
           return {title, measure, ingredientId: _id }; 
+      });
       });
 
       const result = await Recipe.create({
@@ -174,6 +182,7 @@ const cloudinary = require('cloudinary').v2;
       );    
 
       if (!result) { 
+        throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
         throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
       } 
 
