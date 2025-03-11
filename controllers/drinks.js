@@ -152,13 +152,7 @@ const cloudinary = require('cloudinary').v2;
       if (req.fileValidationError){
         throw httpError(500, "Wrong file format.");
       }
-      if (req.fileValidationError){
-        throw httpError(500, "Wrong file format.");
-      }
 
-      if (!req.file) { 
-        throw httpError(400, `Drink photo is required`); 
-      } 
       if (!req.file) { 
         throw httpError(400, `Drink photo is required`); 
       } 
@@ -167,13 +161,9 @@ const cloudinary = require('cloudinary').v2;
       const {ingredients} = req.body;
       const drinkThumb = req.file.path;
       
-      const {ingredients} = req.body;
-      const drinkThumb = req.file.path;
-      
       const ingredientsJSON =  JSON.parse(ingredients).map(({title, measure="", _id: ingId})=>{
           const _id = new mongoose.Types.ObjectId(ingId);
           return {title, measure, ingredientId: _id }; 
-      });
       });
 
       const result = await Recipe.create({
@@ -186,11 +176,9 @@ const cloudinary = require('cloudinary').v2;
 
       if (!result) { 
         throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
-        throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
       } 
 
       res.status(201).json(result);
-
     } 
 
     const addDrinkToFavorite = async (req, res) => {
