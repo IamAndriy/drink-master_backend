@@ -166,10 +166,11 @@ const cloudinary = require('cloudinary').v2;
           return {title, measure, ingredientId: _id }; 
       });
 
-      // const drink = await Recipe.findOne({name: req.body.name});
-      // if (!drink) {
-      //   throw httpError(409, `Drink with name ${req.body.name} is already exist!`);
-      // }
+      const drink = await Recipe.findOne({name: req.body.name});
+      
+      if (!drink) {
+        throw httpError(409, `Drink with name ${req.body.name} is already exist!`);
+      }
 
       const result = await Recipe.create({
             ...req.body,
@@ -179,9 +180,6 @@ const cloudinary = require('cloudinary').v2;
           }
       );    
 
-      if (!result) { 
-        throw httpError(400, `Error! Drink with the name '${req.body.drink}' is elready in the list`);
-      } 
       res.status(201).json(result);
     } 
 
