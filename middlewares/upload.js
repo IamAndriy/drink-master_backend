@@ -26,7 +26,7 @@ const storage = new CloudinaryStorage({
 
     return {
       folder: folder,
-      allowed_formats: ["jpg", "png"], 
+      allowed_formats: ["jpeg", "jpg", "png", "avif", "bmp", "webp"], 
       public_id: file.originalname,    
       transformation: [
         { height: 350, crop: "scale" },
@@ -38,7 +38,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage,
   fileFilter: (req, file, cb)=>{
-      const formatsArray = ['image/png', 'image/jpeg', 'image/jpg'];
+      const formatsArray = ['image/jpeg', 'image/jpg', 'image/png', 'image/avif', 'image/bmp', 'image/webp' ];
 
       if (formatsArray.indexOf(file.mimetype) === -1) {
         return cb(httpError(500,"Wrong file format!"));
