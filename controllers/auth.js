@@ -1,13 +1,14 @@
 const {User} = require("../db/models/user");
 const { httpError, ctrlWrapper, sendEmail } = require('../helpers');
-const {v4} = require('uuid');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const path = require("path");
-const fs = require("fs").promises;
 require('dotenv').config();
+const { SECRET_KEY, BASE_URL } = process.env; 
 
-const {SECRET_KEY, BASE_URL} = process.env; 
+//const {v4} = require('uuid');
+//const path = require("path");
+//const fs = require("fs").promises;
+
 
 //------ КОНТРОЛЛЕРИ ДЛЯ РОБОТИ ІЗ КОЛЛЕКЦІЄЮ USERS (для реєстрації, авторизації, розаавторизації) ----------------------------
 
@@ -31,7 +32,7 @@ const {SECRET_KEY, BASE_URL} = process.env;
     await User.findByIdAndUpdate(newUser._id, { token }, {new: true});
     
     // ----------------------------------------------------------
-    // блок з верифікацією email після реєстрації закоментила, що  залогінитися автоматом одазу після реєстрації
+    // блок з верифікацією email після реєстрації закоментила, щоб залогінитися автоматом одазу після реєстрації
     // const verificationToken = v4();                                                                 // створюэмо токен для верифікації emai
     // const newUser = await User.create({...req.body, password: hashPassword, verificationToken,});   // створюємо нового юзера
 

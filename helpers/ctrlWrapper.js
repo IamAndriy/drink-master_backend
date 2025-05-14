@@ -1,4 +1,5 @@
 const ctrlWrapper = ctrl => {
+
     const func = async (req, res, next) => {
         try {
             await ctrl(req, res, next);
@@ -7,6 +8,7 @@ const ctrlWrapper = ctrl => {
             next(error);
         }
     }
+    
     return func;
 }
 
