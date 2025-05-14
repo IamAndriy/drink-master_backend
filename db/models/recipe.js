@@ -132,7 +132,7 @@ const joi = require("joi");
 // ----- СХЕМИ ВАЛІДАЦІЇ ДАНИХ В ТІЛІ HTTP-запиту КОЛЕКЦІЇ "RECIPES"-----------------------------------------------------------
 
 const addSchema = joi.object({
-    drink : joi.string().required().min(2).max(50).unique().error(errors => {
+    drink : joi.string().required().min(2).max(50).error(errors => {
         errors.forEach(err => {
             switch (err.code) {
                     case "any.required": 
